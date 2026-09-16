@@ -11,10 +11,16 @@ const connectDB = async () => {
   }
 
   if (!cached.promise) {
-    const opts = {
+    const uri = process.env.MONGODB_URI;
+    if (!uri) {
+      throw new Error('MONGODB_URI no está definida');
+    }
+
+    cached.promise = mongoose.connect(uri, {
       bufferCommands: false,
-    };
-    cached.promise = mongoose.connect(process.env.MONGODB_URI, opts).then((m) => m);
+      serverSelectionTimeoutMS: 8000,
+      socketTimeoutMS: 15000,
+    }).then((m) => m);
   }
 
   try {
