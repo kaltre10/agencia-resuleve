@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agencia de Apuestas Oficial</title>
+    <meta name="description" content="Agencia oficial de apuestas loteriles en Venezuela. Pagos inmediatos, loterías, animalitos y tripletas." />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Update title from localStorage settings
+      const updateTitle = () => {
+        try {
+          const stored = localStorage.getItem('landing-settings');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            const appName = parsed?.state?.settings?.appName;
+            if (appName) document.title = appName + ' - Agencia de Apuestas Oficial';
+          }
+        } catch (e) {}
+      };
+      updateTitle();
+      window.addEventListener('storage', updateTitle);
+    </script>
+  </body>
+</html>
