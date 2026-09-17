@@ -98,11 +98,25 @@ const HeroSection = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-primary via-accent to-primary rounded-2xl blur-lg opacity-25" />
             <div className="relative z-10 w-full flex flex-col items-center">
               <div className="w-48 h-48 sm:w-56 sm:h-56 relative mb-4 flex items-center justify-center">
-                <img
-                  alt={`${settings.appName} Insignia Oficial`}
-                  className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(78,222,163,0.5)] transform hover:rotate-3 transition-transform duration-500"
-                  src="https://lh3.googleusercontent.com/aida/AEtjO1VMM_AuKQtDu6KPI-H1fEKa_Q3BKznOPug3HiFUoxKpUPGsCTHWGetHXm8gKNfNzQ0VWERBS6omBJ9S-HWeVN9buUDWKFpZpUfaQHMqKfbi6VbzWOl-CFbMWemgflzG8-YHjRVdM_NNhqO9unFV3RxjiQwbiNp_oLmsVVk5zJ8e8ag-OICm_ptkyHDC22tjbhGBZyyRhs7u9uNcHDPJyC-qLfzUcYyTvktwNkGM3Fg7C0bDDUioqAmYlA=s1600?authuser=2"
-                />
+                {settings.heroImageLink ? (
+                  <a
+                    href={settings.heroImageLink}
+                    target={settings.heroImageLinkTarget || '_blank'}
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      alt={`${settings.appName} Insignia Oficial`}
+                      className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(78,222,163,0.5)] transform hover:rotate-3 transition-transform duration-500"
+                      src={settings.heroImage}
+                    />
+                  </a>
+                ) : (
+                  <img
+                    alt={`${settings.appName} Insignia Oficial`}
+                    className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(78,222,163,0.5)] transform hover:rotate-3 transition-transform duration-500"
+                    src={settings.heroImage}
+                  />
+                )}
               </div>
 
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest text-accent text-xs uppercase tracking-wider mb-2 font-bold">

@@ -8,19 +8,22 @@ const defaultSettings = {
   instagram: '',
   facebook: '',
   tiktok: '',
+  heroImage: 'https://lh3.googleusercontent.com/aida/AEtjO1VMM_AuKQtDu6KPI-H1fEKa_Q3BKznOPug3HiFUoxKpUPGsCTHWGetHXm8gKNfNzQ0VWERBS6omBJ9S-HWeVN9buUDWKFpZpUfaQHMqKfbi6VbzWOl-CFbMWemgflzG8-YHjRVdM_NNhqO9unFV3RxjiQwbiNp_oLmsVVk5zJ8e8ag-OICm_ptkyHDC22tjbhGBZyyRhs7u9uNcHDPJyC-qLfzUcYyTvktwNkGM3Fg7C0bDDUioqAmYlA=s1600?authuser=2',
+  heroImageLink: '',
+  heroImageLinkTarget: '_blank',
 };
 
 const defaultCarousel = [
-  { id: '1', name: 'Lotto Activo', image: 'https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=400&h=100&fit=crop', gradient: 'from-green-600/90 to-green-900/90', text: 'LOTTO ACTIVO', sub: 'Sorteos cada hora', active: true },
-  { id: '2', name: 'La Granjita', image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400&h=100&fit=crop', gradient: 'from-yellow-600/90 to-orange-800/90', text: 'LA GRANJITA', sub: '12 sorteos diarios', active: true },
-  { id: '3', name: 'Triple Chance', image: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=400&h=100&fit=crop', gradient: 'from-blue-600/90 to-indigo-900/90', text: 'TRIPLE CHANCE', sub: 'Premio x200.000', active: true },
-  { id: '4', name: 'Triple Caracas', image: 'https://images.unsplash.com/photo-1569025690938-a00729c9e1f9?w=400&h=100&fit=crop', gradient: 'from-red-600/90 to-rose-900/90', text: 'TRIPLE CARACAS', sub: '3 sorteos al día', active: true },
-  { id: '5', name: 'Animalitos', image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=100&fit=crop', gradient: 'from-purple-600/90 to-violet-900/90', text: 'ANIMALITOS', sub: 'Juega desde 1 Bs', active: true },
+  { id: '1', name: 'Lotto Activo', image: 'https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=400&h=100&fit=crop', gradient: 'from-green-600/90 to-green-900/90', text: 'LOTTO ACTIVO', sub: 'Sorteos cada hora', link: '', linkTarget: '_blank', active: true },
+  { id: '2', name: 'La Granjita', image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400&h=100&fit=crop', gradient: 'from-yellow-600/90 to-orange-800/90', text: 'LA GRANJITA', sub: '12 sorteos diarios', link: '', linkTarget: '_blank', active: true },
+  { id: '3', name: 'Triple Chance', image: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=400&h=100&fit=crop', gradient: 'from-blue-600/90 to-indigo-900/90', text: 'TRIPLE CHANCE', sub: 'Premio x200.000', link: '', linkTarget: '_blank', active: true },
+  { id: '4', name: 'Triple Caracas', image: 'https://images.unsplash.com/photo-1569025690938-a00729c9e1f9?w=400&h=100&fit=crop', gradient: 'from-red-600/90 to-rose-900/90', text: 'TRIPLE CARACAS', sub: '3 sorteos al día', link: '', linkTarget: '_blank', active: true },
+  { id: '5', name: 'Animalitos', image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=100&fit=crop', gradient: 'from-purple-600/90 to-violet-900/90', text: 'ANIMALITOS', sub: 'Juega desde 1 Bs', link: '', linkTarget: '_blank', active: true },
 ];
 
 const defaultOffers = [
-  { id: '1', title: 'BONO DEL 20% EN TU PRIMERA RECARGA', subtitle: 'Recibe 20% extra en tu primer juego del día. Válido hoy desde 50 Bs.', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=400&fit=crop', tagTop: '¡BONO RECARGA!', tagTopColor: 'bg-secondary-container text-on-secondary-container', tagExtra: '20% EXTRA', labelTag: 'PROMO WHATSAPP', labelText: 'Válido hoy desde 50 Bs', active: true },
-  { id: '2', title: 'PAGA TUS TRIPLETAS CON MULTIPLICADOR x1000', subtitle: 'Sin comisiones por retiro. Pago inmediato vía Pago Móvil o Binance.', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBGShoblpCSAPAphuekeflfBip57hMSEPPkaJsKCdtn61whr3n2R9TEkZD0mIYq5XeOy7oIaXrQFqNy6d5u0wWhh78ZHGwExEvpL0vLWrKXPcjxyRs_OJ_wZlKTyH3Hw5a9MeWE1Ugcks-LAaH_Pz8okuEIZMm4OHykxC1fEGMOwJz3PL2z_1X2213x8iRSZcFa-045I7crtt3T_xrMmRfxvlLim2WaFv4rZgemK4EBivfn75svaHnq', tagTop: 'TRIPLETAS & TRIPLES', tagTopColor: 'bg-primary-container text-on-primary', tagExtra: 'PAGO INMEDIATO', labelTag: 'PROMO OFICIAL', labelText: 'Sin comisiones por retiro', active: true },
+  { id: '1', title: 'BONO DEL 20% EN TU PRIMERA RECARGA', subtitle: 'Recibe 20% extra en tu primer juego del día. Válido hoy desde 50 Bs.', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=400&fit=crop', tagTop: '¡BONO RECARGA!', tagTopColor: 'bg-secondary-container text-on-secondary-container', tagExtra: '20% EXTRA', labelTag: 'PROMO WHATSAPP', labelText: 'Válido hoy desde 50 Bs', link: '', linkTarget: '_blank', active: true },
+  { id: '2', title: 'PAGA TUS TRIPLETAS CON MULTIPLICADOR x1000', subtitle: 'Sin comisiones por retiro. Pago inmediato vía Pago Móvil o Binance.', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBGShoblpCSAPAphuekeflfBip57hMSEPPkaJsKCdtn61whr3n2R9TEkZD0mIYq5XeOy7oIaXrQFqNy6d5u0wWhh78ZHGwExEvpL0vLWrKXPcjxyRs_OJ_wZlKTyH3Hw5a9MeWE1Ugcks-LAaH_Pz8okuEIZMm4OHykxC1fEGMOwJz3PL2z_1X2213x8iRSZcFa-045I7crtt3T_xrMmRfxvlLim2WaFv4rZgemK4EBivfn75svaHnq', tagTop: 'TRIPLETAS & TRIPLES', tagTopColor: 'bg-primary-container text-on-primary', tagExtra: 'PAGO INMEDIATO', labelTag: 'PROMO OFICIAL', labelText: 'Sin comisiones por retiro', link: '', linkTarget: '_blank', active: true },
 ];
 
 const defaultPredictions = {

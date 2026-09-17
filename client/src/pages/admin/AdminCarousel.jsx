@@ -18,7 +18,7 @@ const gradients = [
   'from-rose-600/90 to-red-900/90',
 ];
 
-const emptyItem = { name: '', image: '', text: '', sub: '', gradient: gradients[0] };
+const emptyItem = { name: '', image: '', text: '', sub: '', gradient: gradients[0], link: '', linkTarget: '_blank' };
 
 const AdminCarousel = () => {
   const { carousel, addCarouselItem, updateCarouselItem, removeCarouselItem } = useLandingStore();
@@ -39,7 +39,7 @@ const AdminCarousel = () => {
   };
 
   const handleEdit = (item) => {
-    setForm({ name: item.name, image: item.image, text: item.text, sub: item.sub, gradient: item.gradient });
+    setForm({ name: item.name, image: item.image, text: item.text, sub: item.sub, gradient: item.gradient, link: item.link || '', linkTarget: item.linkTarget || '_blank' });
     setEditing(item.id);
     setShowForm(true);
   };
@@ -136,6 +136,32 @@ const AdminCarousel = () => {
                 ))}
               </div>
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-surface-container-highest">
+            <div className="sm:col-span-2">
+              <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Enlace (opcional)</label>
+              <input
+                type="url"
+                value={form.link}
+                onChange={(e) => setForm({ ...form, link: e.target.value })}
+                placeholder="Ej: https://wa.me/584120000000"
+                className="w-full p-2.5 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
+              />
+            </div>
+            {form.link && (
+              <div>
+                <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Abrir enlace en</label>
+                <select
+                  value={form.linkTarget}
+                  onChange={(e) => setForm({ ...form, linkTarget: e.target.value })}
+                  className="w-full p-2.5 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-pointer"
+                >
+                  <option value="_blank">Nueva pestaña</option>
+                  <option value="_self">Misma página</option>
+                </select>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-2 pt-2">

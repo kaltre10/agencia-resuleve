@@ -12,6 +12,8 @@ const emptyOffer = {
   tagExtra: '',
   labelTag: '',
   labelText: '',
+  link: '',
+  linkTarget: '_blank',
 };
 
 const AdminOffers = () => {
@@ -42,6 +44,8 @@ const AdminOffers = () => {
       tagExtra: item.tagExtra,
       labelTag: item.labelTag,
       labelText: item.labelText,
+      link: item.link || '',
+      linkTarget: item.linkTarget || '_blank',
     });
     setEditing(item.id);
     setShowForm(true);
@@ -155,6 +159,29 @@ const AdminOffers = () => {
                 className="w-full p-2.5 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
               />
             </div>
+            <div className="sm:col-span-2">
+              <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Enlace (opcional)</label>
+              <input
+                type="url"
+                value={form.link}
+                onChange={(e) => setForm({ ...form, link: e.target.value })}
+                placeholder="Ej: https://wa.me/584120000000"
+                className="w-full p-2.5 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
+              />
+            </div>
+            {form.link && (
+              <div>
+                <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Abrir enlace en</label>
+                <select
+                  value={form.linkTarget}
+                  onChange={(e) => setForm({ ...form, linkTarget: e.target.value })}
+                  className="w-full p-2.5 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-pointer"
+                >
+                  <option value="_blank">Nueva pestaña</option>
+                  <option value="_self">Misma página</option>
+                </select>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-2 pt-2">

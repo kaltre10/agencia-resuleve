@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Save, RotateCcw } from 'lucide-react';
 import useLandingStore from '@/store/landingStore';
+import ImageUploader from '@/components/ImageUploader';
 
 const AdminSettings = () => {
   const { settings, updateSettings } = useLandingStore();
@@ -21,6 +22,9 @@ const AdminSettings = () => {
       instagram: '',
       facebook: '',
       tiktok: '',
+      heroImage: '',
+      heroImageLink: '',
+      heroImageLinkTarget: '_blank',
     });
   };
 
@@ -75,6 +79,46 @@ const AdminSettings = () => {
             />
             <p className="text-[10px] text-on-surface-variant mt-1">Se muestra en el Hero: "Desde X Bs"</p>
           </div>
+        </div>
+
+        <div className="p-6 rounded-2xl bg-surface-container border border-surface-container-highest space-y-5">
+          <h3 className="font-bold text-on-surface uppercase text-sm border-b border-surface-container-highest pb-3">
+            Imagen del Hero
+          </h3>
+          <p className="text-[10px] text-on-surface-variant">Imagen principal que se muestra en la sección Hero de la landing</p>
+
+          <ImageUploader
+            preset="offer"
+            description="Hero image"
+            currentUrl={form.heroImage}
+            onUploaded={(url) => setForm({ ...form, heroImage: url })}
+            label="Imagen Principal"
+          />
+
+          <div>
+            <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1.5">Enlace de la Imagen (opcional)</label>
+            <input
+              type="url"
+              value={form.heroImageLink}
+              onChange={(e) => setForm({ ...form, heroImageLink: e.target.value })}
+              placeholder="Ej: https://wa.me/584120000000"
+              className="w-full p-3 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
+            />
+          </div>
+
+          {form.heroImageLink && (
+            <div>
+              <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1.5">Abrir enlace en</label>
+              <select
+                value={form.heroImageLinkTarget}
+                onChange={(e) => setForm({ ...form, heroImageLinkTarget: e.target.value })}
+                className="w-full p-3 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-pointer"
+              >
+                <option value="_blank">Nueva pestaña</option>
+                <option value="_self">Misma página</option>
+              </select>
+            </div>
+          )}
         </div>
 
         <div className="p-6 rounded-2xl bg-surface-container border border-surface-container-highest space-y-5">

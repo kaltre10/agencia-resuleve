@@ -1,7 +1,11 @@
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
 export async function uploadImage(base64Data, description = '') {
-  const response = await fetch(`${API_BASE}/api/upload/image`, {
+  const url = API_BASE
+    ? `${API_BASE}/upload/image`
+    : '/api/upload/image';
+
+  const response = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ source: base64Data, description }),
