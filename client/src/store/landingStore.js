@@ -11,6 +11,9 @@ const defaultSettings = {
   heroImage: 'https://lh3.googleusercontent.com/aida/AEtjO1VMM_AuKQtDu6KPI-H1fEKa_Q3BKznOPug3HiFUoxKpUPGsCTHWGetHXm8gKNfNzQ0VWERBS6omBJ9S-HWeVN9buUDWKFpZpUfaQHMqKfbi6VbzWOl-CFbMWemgflzG8-YHjRVdM_NNhqO9unFV3RxjiQwbiNp_oLmsVVk5zJ8e8ag-OICm_ptkyHDC22tjbhGBZyyRhs7u9uNcHDPJyC-qLfzUcYyTvktwNkGM3Fg7C0bDDUioqAmYlA=s1600?authuser=2',
   heroImageLink: '',
   heroImageLinkTarget: '_blank',
+  heroTitle: 'Centro de Apuestas Legal y Seguro',
+  heroDescription: 'Juega cómodamente desde tu teléfono móvil y cobra de inmediato. Más de 5 años de respaldo, honestidad comprobada y miles de premios liquidados al segundo en toda Venezuela.',
+  heroButtonText: 'Apostar a Este Sorteo',
 };
 
 const defaultCarousel = [
@@ -22,8 +25,8 @@ const defaultCarousel = [
 ];
 
 const defaultOffers = [
-  { id: '1', title: 'BONO DEL 20% EN TU PRIMERA RECARGA', subtitle: 'Recibe 20% extra en tu primer juego del día. Válido hoy desde 50 Bs.', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=400&fit=crop', tagTop: '¡BONO RECARGA!', tagTopColor: 'bg-secondary-container text-on-secondary-container', tagExtra: '20% EXTRA', labelTag: 'PROMO WHATSAPP', labelText: 'Válido hoy desde 50 Bs', link: '', linkTarget: '_blank', active: true },
-  { id: '2', title: 'PAGA TUS TRIPLETAS CON MULTIPLICADOR x1000', subtitle: 'Sin comisiones por retiro. Pago inmediato vía Pago Móvil o Binance.', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBGShoblpCSAPAphuekeflfBip57hMSEPPkaJsKCdtn61whr3n2R9TEkZD0mIYq5XeOy7oIaXrQFqNy6d5u0wWhh78ZHGwExEvpL0vLWrKXPcjxyRs_OJ_wZlKTyH3Hw5a9MeWE1Ugcks-LAaH_Pz8okuEIZMm4OHykxC1fEGMOwJz3PL2z_1X2213x8iRSZcFa-045I7crtt3T_xrMmRfxvlLim2WaFv4rZgemK4EBivfn75svaHnq', tagTop: 'TRIPLETAS & TRIPLES', tagTopColor: 'bg-primary-container text-on-primary', tagExtra: 'PAGO INMEDIATO', labelTag: 'PROMO OFICIAL', labelText: 'Sin comisiones por retiro', link: '', linkTarget: '_blank', active: true },
+  { id: '1', title: 'BONO DEL 20% EN TU PRIMERA RECARGA', subtitle: 'Recibe 20% extra en tu primer juego del día. Válido hoy desde 50 Bs.', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=400&fit=crop', tagTop: '¡BONO RECARGA!', tagTopColor: 'bg-secondary-container text-on-secondary-container', tagExtra: '20% EXTRA', labelTag: 'PROMO WHATSAPP', labelText: 'Válido hoy desde 50 Bs', badgeVerified: 'OPERADOR VERIFICADO', badgeSorteos: 'Sorteos de Hoy', badgeSorteosDetail: 'Lotto Activo • La Granjita • Triples Nacionales', offerButtonText: 'Apostar con Este Bono', offerButtonUrl: 'https://wa.me/?text=Hola,%20quiero%20apostar%20con%20el%20bono%20del%2020%25.', offerButtonTarget: '_blank', link: '', linkTarget: '_blank', active: true },
+  { id: '2', title: 'PAGA TUS TRIPLETAS CON MULTIPLICADOR x1000', subtitle: 'Sin comisiones por retiro. Pago inmediato vía Pago Móvil o Binance.', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBGShoblpCSAPAphuekeflfBip57hMSEPPkaJsKCdtn61whr3n2R9TEkZD0mIYq5XeOy7oIaXrQFqNy6d5u0wWhh78ZHGwExEvpL0vLWrKXPcjxyRs_OJ_wZlKTyH3Hw5a9MeWE1Ugcks-LAaH_Pz8okuEIZMm4OHykxC1fEGMOwJz3PL2z_1X2213x8iRSZcFa-045I7crtt3T_xrMmRfxvlLim2WaFv4rZgemK4EBivfn75svaHnq', tagTop: 'TRIPLETAS & TRIPLES', tagTopColor: 'bg-primary-container text-on-primary', tagExtra: 'PAGO INMEDIATO', labelTag: 'PROMO OFICIAL', labelText: 'Sin comisiones por retiro', badgeVerified: 'OPERADOR VERIFICADO', badgeSorteos: 'Sorteos de Hoy', badgeSorteosDetail: 'Lotto Activo • La Granjita • Triples Nacionales', offerButtonText: 'Apostar con Este Bono', offerButtonUrl: 'https://wa.me/?text=Hola,%20quiero%20apostar%20con%20esta%20promo.', offerButtonTarget: '_blank', link: '', linkTarget: '_blank', active: true },
 ];
 
 const defaultPredictions = {

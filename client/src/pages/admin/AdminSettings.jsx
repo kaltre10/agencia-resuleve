@@ -25,6 +25,9 @@ const AdminSettings = () => {
       heroImage: '',
       heroImageLink: '',
       heroImageLinkTarget: '_blank',
+      heroTitle: 'Centro de Apuestas Legal y Seguro',
+      heroDescription: 'Juega cómodamente desde tu teléfono móvil y cobra de inmediato. Más de 5 años de respaldo, honestidad comprobada y miles de premios liquidados al segundo en toda Venezuela.',
+      heroButtonText: 'Apostar a Este Sorteo',
     });
   };
 
@@ -119,6 +122,45 @@ const AdminSettings = () => {
               </select>
             </div>
           )}
+        </div>
+
+        <div className="p-6 rounded-2xl bg-surface-container border border-surface-container-highest space-y-5">
+          <h3 className="font-bold text-on-surface uppercase text-sm border-b border-surface-container-highest pb-3">
+            Textos del Hero
+          </h3>
+
+          <div>
+            <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1.5">Subtítulo del Hero</label>
+            <input
+              type="text"
+              value={form.heroTitle}
+              onChange={(e) => setForm({ ...form, heroTitle: e.target.value })}
+              placeholder="Ej: Centro de Apuestas Legal y Seguro"
+              className="w-full p-3 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
+            />
+          </div>
+
+          <div>
+            <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1.5">Descripción del Hero</label>
+            <textarea
+              value={form.heroDescription}
+              onChange={(e) => setForm({ ...form, heroDescription: e.target.value })}
+              placeholder="Descripción que aparece debajo del título"
+              rows={3}
+              className="w-full p-3 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none resize-none cursor-text"
+            />
+          </div>
+
+          <div>
+            <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1.5">Texto del Botón Inferior</label>
+            <input
+              type="text"
+              value={form.heroButtonText}
+              onChange={(e) => setForm({ ...form, heroButtonText: e.target.value })}
+              placeholder="Ej: Apostar a Este Sorteo"
+              className="w-full p-3 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
+            />
+          </div>
         </div>
 
         <div className="p-6 rounded-2xl bg-surface-container border border-surface-container-highest space-y-5">

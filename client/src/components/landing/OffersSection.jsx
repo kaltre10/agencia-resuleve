@@ -66,6 +66,19 @@ const OffersSection = () => {
                   )}
                 </div>
                 <div className="p-6 flex flex-col gap-3">
+                  {banner.badgeVerified && (
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest text-accent text-xs uppercase tracking-wider mb-1 font-bold w-fit">
+                      ⭐ {banner.badgeVerified}
+                    </div>
+                  )}
+                  {banner.badgeSorteos && (
+                    <>
+                      <span className="text-xl font-bold text-on-surface uppercase tracking-tight">{banner.badgeSorteos}</span>
+                      {banner.badgeSorteosDetail && (
+                        <p className="text-sm text-on-surface-variant">{banner.badgeSorteosDetail}</p>
+                      )}
+                    </>
+                  )}
                   <div className="flex items-center gap-2">
                     {banner.labelTag && (
                       <span className="px-2.5 py-0.5 rounded bg-primary/20 text-primary text-xs uppercase font-bold">
@@ -80,13 +93,13 @@ const OffersSection = () => {
                   <p className="text-sm text-on-surface-variant">{banner.subtitle}</p>
                   <a
                     className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary-container hover:bg-primary text-on-primary text-sm font-bold uppercase tracking-wider transition-all shadow-md mt-2"
-                    href={banner.link || 'https://wa.me/?text=Hola,%20quiero%20apostar%20con%20el%20bono%20del%2020%25.'}
-                    target={banner.link ? (banner.linkTarget || '_blank') : '_blank'}
+                    href={banner.offerButtonUrl || banner.link || 'https://wa.me/?text=Hola,%20quiero%20apostar%20con%20el%20bono%20del%2020%25.'}
+                    target={banner.offerButtonUrl ? (banner.offerButtonTarget || '_blank') : (banner.link ? (banner.linkTarget || '_blank') : '_blank')}
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <Zap className="size-4" />
-                    <span>Apostar con Este Bono</span>
+                    <span>{banner.offerButtonText || 'Apostar con Este Bono'}</span>
                   </a>
                 </div>
               </Tag>

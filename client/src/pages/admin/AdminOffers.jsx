@@ -12,6 +12,12 @@ const emptyOffer = {
   tagExtra: '',
   labelTag: '',
   labelText: '',
+  badgeVerified: '',
+  badgeSorteos: '',
+  badgeSorteosDetail: '',
+  offerButtonText: 'Apostar con Este Bono',
+  offerButtonUrl: '',
+  offerButtonTarget: '_blank',
   link: '',
   linkTarget: '_blank',
 };
@@ -44,6 +50,12 @@ const AdminOffers = () => {
       tagExtra: item.tagExtra,
       labelTag: item.labelTag,
       labelText: item.labelText,
+      badgeVerified: item.badgeVerified || '',
+      badgeSorteos: item.badgeSorteos || '',
+      badgeSorteosDetail: item.badgeSorteosDetail || '',
+      offerButtonText: item.offerButtonText || 'Apostar con Este Bono',
+      offerButtonUrl: item.offerButtonUrl || '',
+      offerButtonTarget: item.offerButtonTarget || '_blank',
       link: item.link || '',
       linkTarget: item.linkTarget || '_blank',
     });
@@ -159,8 +171,71 @@ const AdminOffers = () => {
                 className="w-full p-2.5 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
               />
             </div>
+            <div>
+              <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Badge Verificado</label>
+              <input
+                type="text"
+                value={form.badgeVerified}
+                onChange={(e) => setForm({ ...form, badgeVerified: e.target.value })}
+                placeholder="Ej: OPERADOR VERIFICADO"
+                className="w-full p-2.5 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Badge Sorteos</label>
+              <input
+                type="text"
+                value={form.badgeSorteos}
+                onChange={(e) => setForm({ ...form, badgeSorteos: e.target.value })}
+                placeholder="Ej: Sorteos de Hoy"
+                className="w-full p-2.5 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
+              />
+            </div>
             <div className="sm:col-span-2">
-              <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Enlace (opcional)</label>
+              <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Detalle de Sorteos</label>
+              <input
+                type="text"
+                value={form.badgeSorteosDetail}
+                onChange={(e) => setForm({ ...form, badgeSorteosDetail: e.target.value })}
+                placeholder="Ej: Lotto Activo • La Granjita • Triples Nacionales"
+                className="w-full p-2.5 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Texto del Botón</label>
+              <input
+                type="text"
+                value={form.offerButtonText}
+                onChange={(e) => setForm({ ...form, offerButtonText: e.target.value })}
+                placeholder="Ej: Apostar con Este Bono"
+                className="w-full p-2.5 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">URL del Botón</label>
+              <input
+                type="url"
+                value={form.offerButtonUrl}
+                onChange={(e) => setForm({ ...form, offerButtonUrl: e.target.value })}
+                placeholder="Ej: https://wa.me/584120000000"
+                className="w-full p-2.5 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
+              />
+            </div>
+            {form.offerButtonUrl && (
+              <div>
+                <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Abrir botón en</label>
+                <select
+                  value={form.offerButtonTarget}
+                  onChange={(e) => setForm({ ...form, offerButtonTarget: e.target.value })}
+                  className="w-full p-2.5 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-pointer"
+                >
+                  <option value="_blank">Nueva pestaña</option>
+                  <option value="_self">Misma página</option>
+                </select>
+              </div>
+            )}
+            <div className="sm:col-span-2">
+              <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Enlace del Banner (opcional)</label>
               <input
                 type="url"
                 value={form.link}
@@ -171,7 +246,7 @@ const AdminOffers = () => {
             </div>
             {form.link && (
               <div>
-                <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Abrir enlace en</label>
+                <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Abrir banner en</label>
                 <select
                   value={form.linkTarget}
                   onChange={(e) => setForm({ ...form, linkTarget: e.target.value })}

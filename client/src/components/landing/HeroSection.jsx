@@ -45,13 +45,12 @@ const HeroSection = () => {
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-on-surface uppercase tracking-tight font-[var(--font-display)]">
             {settings.appName}
             <span className="block text-primary drop-shadow-[0_0_20px_rgba(78,222,163,0.35)]">
-              Centro de Apuestas Legal y Seguro
+              {settings.heroTitle}
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
-            Juega cómodamente desde tu teléfono móvil y cobra de inmediato. Más de 5 años de respaldo,
-            honestidad comprobada y miles de premios liquidados al segundo en toda Venezuela.
+            {settings.heroDescription}
           </p>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
@@ -144,7 +143,7 @@ const HeroSection = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                👆 Apostar a Este Sorteo
+                {settings.heroButtonText}
               </a>
             </div>
           </div>
