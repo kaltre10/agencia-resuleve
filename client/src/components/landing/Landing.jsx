@@ -6,8 +6,6 @@ import OffersSection from './OffersSection';
 import PaymentsSection from './PaymentsSection';
 import WhyUsSection from './WhyUsSection';
 import PredictionsSection from './PredictionsSection';
-import SimulatorSection from './SimulatorSection';
-import TestimonialsSection from './TestimonialsSection';
 import FinalCTA from './FinalCTA';
 import WhatsAppFloat from './WhatsAppFloat';
 import Footer from './Footer';
@@ -34,7 +32,7 @@ const Landing = () => {
         <PaymentsSection />
         <WhyUsSection />
         <PredictionsSection />
-        <SimulatorSection />
+        {/* <SimulatorSection /> */}
         {/* <TestimonialsSection /> */}
         <FinalCTA />
       </main>
