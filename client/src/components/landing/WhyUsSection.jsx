@@ -39,7 +39,7 @@ const pillars = [
 const WhyUsSection = () => {
   const { settings } = useLandingStore();
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-8 py-16 bg-surface">
+    <section className="w-full px-4 sm:px-6 lg:px-8 py-16 bg-surface" aria-label="Por que elegirnos">
       <div className="max-w-7xl mx-auto flex flex-col gap-12">
         <div className="flex flex-col gap-3 text-center items-center">
           <span className="text-xs text-primary uppercase tracking-widest bg-surface-container-high px-4 py-1.5 rounded-full font-bold">

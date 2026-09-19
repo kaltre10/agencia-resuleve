@@ -15,7 +15,7 @@ const AdCarousel = () => {
       {ad.image && (
         <img
           src={ad.image}
-          alt={ad.name}
+          alt={`${ad.name} - Loteria y apuestas en Venezuela`}
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
         />
@@ -33,7 +33,7 @@ const AdCarousel = () => {
   );
 
   return (
-    <section className="w-full bg-surface-container-lowest py-1 px-0 overflow-hidden">
+    <section className="w-full bg-surface-container-lowest py-1 px-0 overflow-hidden" aria-label="Carrusel de loterias y promociones">
       <div className="relative h-16 flex items-center">
         <div className="flex gap-2 animate-scroll whitespace-nowrap">
           {duplicated.map((ad, i) =>

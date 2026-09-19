@@ -8,7 +8,7 @@ const OffersSection = () => {
   if (activeOffers.length === 0) return null;
 
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-8 py-8 bg-surface-container-lowest relative">
+    <section className="w-full px-4 sm:px-6 lg:px-8 py-8 bg-surface-container-lowest relative" aria-label="Ofertas y promociones de loteria">
       <div className="max-w-7xl mx-auto flex flex-col gap-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-surface-container-highest pb-4">
           <div className="flex items-center gap-3">
@@ -47,9 +47,10 @@ const OffersSection = () => {
                 <div className="relative w-full h-64 sm:h-72 overflow-hidden bg-surface-container-lowest">
                   {banner.image && (
                     <img
-                      alt={banner.title}
+                      alt={`${banner.title} - Promocion de loteria Venezuela`}
                       className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                       src={banner.image}
+                      loading="lazy"
                     />
                   )}
                   {banner.tagTop && (

@@ -40,7 +40,7 @@ const AdminCarousel = () => {
 
   const handleEdit = (item) => {
     setForm({ name: item.name, image: item.image, text: item.text, sub: item.sub, gradient: item.gradient, link: item.link || '', linkTarget: item.linkTarget || '_blank' });
-    setEditing(item.id);
+    setEditing(item._id || item.id);
     setShowForm(true);
   };
 
@@ -51,7 +51,7 @@ const AdminCarousel = () => {
   };
 
   const toggleActive = (id) => {
-    const item = carousel.find((i) => i.id === id);
+    const item = carousel.find((i) => (i._id || i.id) === id);
     updateCarouselItem(id, { active: !item.active });
   };
 
@@ -183,7 +183,7 @@ const AdminCarousel = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {carousel.map((item) => (
           <div
-            key={item.id}
+            key={item._id || item.id}
             className={`rounded-2xl overflow-hidden border transition-all ${
               item.active
                 ? 'bg-surface-container border-surface-container-highest'
@@ -211,13 +211,13 @@ const AdminCarousel = () => {
                   <Edit className="size-3" /> Editar
                 </button>
                 <button
-                  onClick={() => toggleActive(item.id)}
+                  onClick={() => toggleActive(item._id || item.id)}
                   className="p-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant transition-all cursor-pointer"
                 >
                   {item.active ? <Eye className="size-4" /> : <EyeOff className="size-4" />}
                 </button>
                 <button
-                  onClick={() => removeCarouselItem(item.id)}
+                  onClick={() => removeCarouselItem(item._id || item.id)}
                   className="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-all cursor-pointer"
                 >
                   <Trash2 className="size-4" />

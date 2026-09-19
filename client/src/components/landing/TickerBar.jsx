@@ -31,7 +31,7 @@ const TickerBar = () => {
   }, [refresh]);
 
   return (
-    <section className="w-full bg-surface-container-lowest py-2 px-3 sm:px-4 overflow-hidden relative">
+    <section className="w-full bg-surface-container-lowest py-2 px-3 sm:px-4 overflow-hidden relative" aria-label="Pagos recientes">
       <div className="max-w-7xl mx-auto flex items-center gap-3 sm:gap-4">
         <div className="flex items-center gap-2 shrink-0">
           <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-primary animate-ping" />

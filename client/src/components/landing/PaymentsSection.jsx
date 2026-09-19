@@ -2,7 +2,7 @@ import { Zap, CreditCard, Building2 } from 'lucide-react';
 
 const PaymentsSection = () => {
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-8 py-12 bg-surface-container-low relative">
+    <section className="w-full px-4 sm:px-6 lg:px-8 py-12 bg-surface-container-low relative" aria-label="Metodos de pago">
       <div className="max-w-7xl mx-auto rounded-3xl bg-gradient-to-br from-surface-container-high via-surface-container to-surface-container-high p-6 sm:p-10 shadow-2xl relative overflow-hidden border-t border-surface-container-highest">
         <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-tertiary-container/20 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -left-20 -top-20 w-80 h-80 bg-primary/20 rounded-full blur-3xl pointer-events-none" />

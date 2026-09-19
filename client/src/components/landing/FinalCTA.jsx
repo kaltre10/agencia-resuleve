@@ -5,7 +5,7 @@ const FinalCTA = () => {
   const { settings } = useLandingStore();
 
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-8 py-16 bg-surface relative overflow-hidden">
+    <section className="w-full px-4 sm:px-6 lg:px-8 py-16 bg-surface relative overflow-hidden" aria-label="Apostar ahora">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/15 rounded-full blur-3xl pointer-events-none" />
 

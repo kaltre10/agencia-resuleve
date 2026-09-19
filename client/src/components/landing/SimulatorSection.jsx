@@ -18,7 +18,7 @@ const SimulatorSection = () => {
   const potentialWin = betAmount * parseInt(lottery.multiplier.replace('x', ''));
 
   return (
-    <section id="simulador" className="w-full px-4 sm:px-6 lg:px-8 py-16 bg-surface">
+    <section id="simulador" className="w-full px-4 sm:px-6 lg:px-8 py-16 bg-surface" aria-label="Simulador de apuestas de loteria">
       <div className="max-w-7xl mx-auto flex flex-col gap-6">
         <div className="flex flex-col gap-3 text-center items-center">
           <span className="text-xs text-primary uppercase tracking-widest bg-surface-container-high px-4 py-1.5 rounded-full font-bold">

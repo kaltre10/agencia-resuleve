@@ -59,7 +59,7 @@ const AdminOffers = () => {
       link: item.link || '',
       linkTarget: item.linkTarget || '_blank',
     });
-    setEditing(item.id);
+    setEditing(item._id || item.id);
     setShowForm(true);
   };
 
@@ -70,7 +70,7 @@ const AdminOffers = () => {
   };
 
   const toggleActive = (id) => {
-    const item = offers.find((i) => i.id === id);
+    const item = offers.find((i) => (i._id || i.id) === id);
     updateOffer(id, { active: !item.active });
   };
 
@@ -278,7 +278,7 @@ const AdminOffers = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {offers.map((item) => (
           <div
-            key={item.id}
+            key={item._id || item.id}
             className={`rounded-2xl overflow-hidden border transition-all ${
               item.active
                 ? 'bg-surface-container border-surface-container-highest'
@@ -321,13 +321,13 @@ const AdminOffers = () => {
                   <Edit className="size-3" /> Editar
                 </button>
                 <button
-                  onClick={() => toggleActive(item.id)}
+                  onClick={() => toggleActive(item._id || item.id)}
                   className="p-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant transition-all cursor-pointer"
                 >
                   {item.active ? <Eye className="size-4" /> : <EyeOff className="size-4" />}
                 </button>
                 <button
-                  onClick={() => removeOffer(item.id)}
+                  onClick={() => removeOffer(item._id || item.id)}
                   className="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-all cursor-pointer"
                 >
                   <Trash2 className="size-4" />

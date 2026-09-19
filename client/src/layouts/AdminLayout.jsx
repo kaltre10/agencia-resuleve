@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Menu, X, LayoutDashboard, Images, Tag, BarChart3, Settings, LogOut, ChevronRight } from 'lucide-react';
 import useAuthStore from '@/store/authStore';
+import useLandingStore from '@/store/landingStore';
 import ThemeToggle from '@/components/ThemeToggle';
 import ModalConfirm from '@/components/ModalConfirm';
 
@@ -18,6 +19,11 @@ const AdminLayout = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const location = useLocation();
   const { user, logout } = useAuthStore();
+  const fetchLanding = useLandingStore((s) => s.fetchLanding);
+
+  useEffect(() => {
+    fetchLanding();
+  }, [fetchLanding]);
 
   return (
     <div className="min-h-screen bg-background flex">
