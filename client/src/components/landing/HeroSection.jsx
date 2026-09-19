@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { MessageCircle, Calculator, ArrowRight, Zap, Shield, DollarSign, Clock } from 'lucide-react';
+import { MessageCircle, ArrowRight, Zap, Shield, DollarSign, Clock } from 'lucide-react';
 import useLandingStore from '@/store/landingStore';
 
 const HeroSection = () => {
@@ -43,7 +43,7 @@ const HeroSection = () => {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-on-surface uppercase tracking-tight font-[var(--font-display)]">
-            {settings.appName}
+            {settings.heroMainTitle || settings.appName}
             <span className="block text-primary drop-shadow-[0_0_20px_rgba(78,222,163,0.35)]">
               {settings.heroTitle}
             </span>
@@ -69,15 +69,6 @@ const HeroSection = () => {
                 </span>
               </div>
               <ArrowRight className="size-5 sm:size-6 group-hover:translate-x-1 transition-transform" />
-            </a>
-
-            <a
-              className="flex items-center justify-center gap-2 px-5 sm:px-6 py-4 sm:py-5 rounded-xl bg-surface-container hover:bg-surface-container-high text-accent text-xs sm:text-sm font-bold uppercase tracking-wide transition-all shadow-md"
-              href="#simulador"
-              aria-label="Simular mi jugada de loteria"
-            >
-              <Calculator className="size-4 sm:size-5" />
-              <span>Simular Mi Jugada</span>
             </a>
           </div>
 

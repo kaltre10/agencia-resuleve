@@ -14,10 +14,29 @@ import useLandingStore from '@/store/landingStore';
 
 const Landing = () => {
   const fetchLanding = useLandingStore((s) => s.fetchLanding);
+  const settings = useLandingStore((s) => s.settings);
 
   useEffect(() => {
     fetchLanding();
   }, [fetchLanding]);
+
+  useEffect(() => {
+    if (settings.favicon) {
+      let link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+      }
+      link.href = settings.favicon;
+    }
+  }, [settings.favicon]);
+
+  useEffect(() => {
+    if (settings.appName) {
+      document.title = settings.appName + ' - Agencia de Loteria y Animalitos en Venezuela';
+    }
+  }, [settings.appName]);
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-[var(--font-sans)] transition-colors">
@@ -32,8 +51,6 @@ const Landing = () => {
         <PaymentsSection />
         <WhyUsSection />
         <PredictionsSection />
-        {/* <SimulatorSection /> */}
-        {/* <TestimonialsSection /> */}
         <FinalCTA />
       </main>
       <Footer />

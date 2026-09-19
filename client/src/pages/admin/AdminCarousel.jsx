@@ -4,6 +4,7 @@ import useLandingStore from '@/store/landingStore';
 import ImageUploader from '@/components/ImageUploader';
 
 const gradients = [
+  '',
   'from-green-600/90 to-green-900/90',
   'from-yellow-600/90 to-orange-800/90',
   'from-blue-600/90 to-indigo-900/90',
@@ -125,14 +126,20 @@ const AdminCarousel = () => {
             <div className="sm:col-span-2">
               <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1">Gradiente</label>
               <div className="flex flex-wrap gap-2">
-                {gradients.map((g) => (
+                {gradients.map((g, i) => (
                   <button
-                    key={g}
+                    key={i}
                     onClick={() => setForm({ ...form, gradient: g })}
-                    className={`w-8 h-8 rounded-lg bg-gradient-to-r ${g} transition-all cursor-pointer ${
+                    className={`h-8 rounded-lg transition-all cursor-pointer flex items-center justify-center px-3 text-[10px] font-bold uppercase ${
+                      g
+                        ? `w-8 bg-gradient-to-r ${g}`
+                        : 'w-auto bg-surface-container-high text-on-surface-variant border border-surface-container-highest'
+                    } ${
                       form.gradient === g ? 'ring-2 ring-primary ring-offset-2 ring-offset-surface-container' : ''
                     }`}
-                  />
+                  >
+                    {!g && 'Sin gradiente'}
+                  </button>
                 ))}
               </div>
             </div>

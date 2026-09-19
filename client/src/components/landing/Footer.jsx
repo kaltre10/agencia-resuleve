@@ -32,15 +32,19 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center font-bold text-sm" aria-hidden="true">
-                RL
-              </div>
+              {settings.favicon ? (
+                <img src={settings.favicon} alt={settings.appName} className="w-8 h-8 rounded-lg object-cover" />
+              ) : (
+                <div className="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center font-bold text-sm" aria-hidden="true">
+                  RL
+                </div>
+              )}
               <span className="text-sm font-bold text-on-surface uppercase tracking-tight">
                 {settings.appName}
               </span>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
-              Agencia oficial de loteria y animalitos en Venezuela. Mas de 5 anos de experiencia brindando pagos inmediatos, loterias nacionales y atención de calidad 24/7.
+              {settings.footerDescription}
             </p>
           </div>
 
@@ -106,13 +110,31 @@ const Footer = () => {
             &copy; 2026 {settings.appName}. Todos los derechos reservados.
           </span>
           <div className="flex items-center gap-4">
-            <a className="text-xs text-on-surface-variant hover:text-primary transition-colors" href="#" aria-label="Terminos y condiciones">
+            <a
+              className="text-xs text-on-surface-variant hover:text-primary transition-colors"
+              href={settings.termsUrl || '#'}
+              target={settings.termsUrl ? '_blank' : undefined}
+              rel={settings.termsUrl ? 'noopener noreferrer' : undefined}
+              aria-label="Terminos y condiciones"
+            >
               Terminos y Condiciones
             </a>
-            <a className="text-xs text-on-surface-variant hover:text-primary transition-colors" href="#" aria-label="Politica de privacidad">
+            <a
+              className="text-xs text-on-surface-variant hover:text-primary transition-colors"
+              href={settings.privacyUrl || '#'}
+              target={settings.privacyUrl ? '_blank' : undefined}
+              rel={settings.privacyUrl ? 'noopener noreferrer' : undefined}
+              aria-label="Politica de privacidad"
+            >
               Politica de Privacidad
             </a>
-            <a className="text-xs text-on-surface-variant hover:text-primary transition-colors" href="#" aria-label="Juego responsable">
+            <a
+              className="text-xs text-on-surface-variant hover:text-primary transition-colors"
+              href={settings.responsibleUrl || '#'}
+              target={settings.responsibleUrl ? '_blank' : undefined}
+              rel={settings.responsibleUrl ? 'noopener noreferrer' : undefined}
+              aria-label="Juego responsable"
+            >
               Juego Responsable
             </a>
           </div>

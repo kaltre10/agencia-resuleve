@@ -20,7 +20,7 @@ const AdCarousel = () => {
           loading="lazy"
         />
       )}
-      <div className={`absolute inset-0 bg-gradient-to-r ${ad.gradient}`} />
+      {ad.gradient && <div className={`absolute inset-0 bg-gradient-to-r ${ad.gradient}`} />}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-2">
         <span className="text-[10px] font-bold text-white uppercase tracking-wider drop-shadow-md">
           {ad.text}

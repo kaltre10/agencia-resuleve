@@ -12,8 +12,14 @@ const defaultSettings = {
   heroImageLink: '',
   heroImageLinkTarget: '_blank',
   heroTitle: 'Centro de Apuestas Legal y Seguro',
+  heroMainTitle: '',
   heroDescription: '',
   heroButtonText: 'Apostar a Este Sorteo',
+  favicon: '',
+  footerDescription: 'Agencia oficial de loteria y animalitos en Venezuela. Mas de 5 anos de experiencia brindando pagos inmediatos, loterias nacionales y atencion de calidad 24/7.',
+  termsUrl: '',
+  privacyUrl: '',
+  responsibleUrl: '',
 };
 
 const defaultCarousel = [

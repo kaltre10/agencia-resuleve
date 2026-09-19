@@ -26,8 +26,14 @@ const AdminSettings = () => {
       heroImageLink: '',
       heroImageLinkTarget: '_blank',
       heroTitle: 'Centro de Apuestas Legal y Seguro',
+      heroMainTitle: '',
       heroDescription: 'Juega cómodamente desde tu teléfono móvil y cobra de inmediato. Más de 5 años de respaldo, honestidad comprobada y miles de premios liquidados al segundo en toda Venezuela.',
       heroButtonText: 'Apostar a Este Sorteo',
+      favicon: '',
+      footerDescription: 'Agencia oficial de loteria y animalitos en Venezuela. Mas de 5 anos de experiencia brindando pagos inmediatos, loterias nacionales y atencion de calidad 24/7.',
+      termsUrl: '',
+      privacyUrl: '',
+      responsibleUrl: '',
     });
   };
 
@@ -82,6 +88,62 @@ const AdminSettings = () => {
             />
             <p className="text-[10px] text-on-surface-variant mt-1">Se muestra en el Hero: "Desde X Bs"</p>
           </div>
+          <div>
+            <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1.5">Descripcion del Footer</label>
+            <textarea
+              value={form.footerDescription}
+              onChange={(e) => setForm({ ...form, footerDescription: e.target.value })}
+              placeholder="Descripcion que aparece en el footer junto al nombre"
+              rows={3}
+              className="w-full p-3 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none resize-none cursor-text"
+            />
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl bg-surface-container border border-surface-container-highest space-y-5">
+          <h3 className="font-bold text-on-surface uppercase text-sm border-b border-surface-container-highest pb-3">
+            Favicon e Icono
+          </h3>
+          <p className="text-[10px] text-on-surface-variant">Icono que aparece en la pestana del navegador y en el footer junto al nombre</p>
+
+          <ImageUploader
+            preset="offer"
+            description="Favicon"
+            currentUrl={form.favicon}
+            onUploaded={(url) => setForm({ ...form, favicon: url })}
+            label="Favicon (recomendado cuadrado)"
+          />
+        </div>
+
+        <div className="p-6 rounded-2xl bg-surface-container border border-surface-container-highest space-y-5">
+          <h3 className="font-bold text-on-surface uppercase text-sm border-b border-surface-container-highest pb-3">
+            Documentos Legales
+          </h3>
+          <p className="text-[10px] text-on-surface-variant">Sube los archivos PDF o imagenes que se abren al dar click en los enlaces del footer</p>
+
+          <ImageUploader
+            preset="offer"
+            description="Terminos y Condiciones"
+            currentUrl={form.termsUrl}
+            onUploaded={(url) => setForm({ ...form, termsUrl: url })}
+            label="Terminos y Condiciones"
+          />
+
+          <ImageUploader
+            preset="offer"
+            description="Politica de Privacidad"
+            currentUrl={form.privacyUrl}
+            onUploaded={(url) => setForm({ ...form, privacyUrl: url })}
+            label="Politica de Privacidad"
+          />
+
+          <ImageUploader
+            preset="offer"
+            description="Juego Responsable"
+            currentUrl={form.responsibleUrl}
+            onUploaded={(url) => setForm({ ...form, responsibleUrl: url })}
+            label="Juego Responsable"
+          />
         </div>
 
         <div className="p-6 rounded-2xl bg-surface-container border border-surface-container-highest space-y-5">
@@ -130,7 +192,19 @@ const AdminSettings = () => {
           </h3>
 
           <div>
-            <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1.5">Subtítulo del Hero</label>
+            <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1.5">Titulo Principal del Hero</label>
+            <input
+              type="text"
+              value={form.heroMainTitle}
+              onChange={(e) => setForm({ ...form, heroMainTitle: e.target.value })}
+              placeholder="Si esta vacio usa el Nombre de la Aplicacion"
+              className="w-full p-3 rounded-xl bg-surface-container-low border border-surface-container-highest text-on-surface text-sm focus:border-primary outline-none cursor-text"
+            />
+            <p className="text-[10px] text-on-surface-variant mt-1">Titulo grande que se muestra en el Hero. Si esta vacio, usa el Nombre de la Aplicacion</p>
+          </div>
+
+          <div>
+            <label className="text-xs text-on-surface-variant uppercase font-bold block mb-1.5">Subtitulo del Hero</label>
             <input
               type="text"
               value={form.heroTitle}
