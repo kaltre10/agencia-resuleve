@@ -107,7 +107,7 @@ const AdminSettings = () => {
           <p className="text-[10px] text-on-surface-variant">Icono que aparece en la pestana del navegador y en el footer junto al nombre</p>
 
           <ImageUploader
-            preset="offer"
+            preset="favicon"
             description="Favicon"
             currentUrl={form.favicon}
             onUploaded={(url) => setForm({ ...form, favicon: url })}
@@ -122,7 +122,7 @@ const AdminSettings = () => {
           <p className="text-[10px] text-on-surface-variant">Sube los archivos PDF o imagenes que se abren al dar click en los enlaces del footer</p>
 
           <ImageUploader
-            preset="offer"
+            preset="footer"
             description="Terminos y Condiciones"
             currentUrl={form.termsUrl}
             onUploaded={(url) => setForm({ ...form, termsUrl: url })}
@@ -130,7 +130,7 @@ const AdminSettings = () => {
           />
 
           <ImageUploader
-            preset="offer"
+            preset="footer"
             description="Politica de Privacidad"
             currentUrl={form.privacyUrl}
             onUploaded={(url) => setForm({ ...form, privacyUrl: url })}
@@ -138,7 +138,7 @@ const AdminSettings = () => {
           />
 
           <ImageUploader
-            preset="offer"
+            preset="footer"
             description="Juego Responsable"
             currentUrl={form.responsibleUrl}
             onUploaded={(url) => setForm({ ...form, responsibleUrl: url })}
@@ -153,7 +153,7 @@ const AdminSettings = () => {
           <p className="text-[10px] text-on-surface-variant">Imagen principal que se muestra en la sección Hero de la landing</p>
 
           <ImageUploader
-            preset="offer"
+            preset="hero"
             description="Hero image"
             currentUrl={form.heroImage}
             onUploaded={(url) => setForm({ ...form, heroImage: url })}

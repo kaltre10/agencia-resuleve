@@ -13,6 +13,16 @@ router.post('/image', async (req, res) => {
       return res.status(400).json({ error: 'source es requerido (base64 o URL)' });
     }
 
+    const sizeMB = source.startsWith('data:')
+      ? (Buffer.byteLength(source.replace(/^data:[^;]+;base64,/, ''), 'base64') / 1024 / 1024).toFixed(1)
+      : 0;
+
+    console.log(`Upload: ${sizeMB}MB | preset: ${description || 'default'}`);
+
+    if (sizeMB > 30) {
+      return res.status(413).json({ error: `Imagen demasiado grande (${sizeMB}MB). Máximo 30MB.` });
+    }
+
     const formData = new FormData();
     formData.append('key', FREEIMAGE_KEY);
     formData.append('format', 'json');
@@ -45,7 +55,8 @@ router.post('/image', async (req, res) => {
     }
 
     if (data.status_code !== 200) {
-      return res.status(500).json({ error: data.error?.message || data.status_txt || 'Error al subir' });
+      console.error('Freeimage error:', data);
+      return res.status(500).json({ error: data.error?.message || data.status_txt || 'Error al subir imagen' });
     }
 
     res.json({

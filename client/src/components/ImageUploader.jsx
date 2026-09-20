@@ -3,6 +3,16 @@ import { Upload, X, Loader2, ImageIcon, Check } from 'lucide-react';
 import { optimizeImage, readFileAsBase64 } from '@/utils/imageOptimizer';
 import { uploadImage } from '@/services/imageUpload';
 
+const PRESET_LABELS = {
+  hero: '1920x800 • Hero principal',
+  carousel: '1200x400 • Carrusel',
+  offer: '800x400 • Ofertas',
+  footer: '600x200 • Footer/logo',
+  logo: '400x400 • Logo cuadrado',
+  thumb: '400x400 • Miniatura',
+  favicon: '128x128 • Favicon',
+};
+
 const ImageUploader = ({ preset = 'carousel', description = '', onUploaded, currentUrl, label = 'Imagen' }) => {
   const [preview, setPreview] = useState(currentUrl || null);
   const [uploading, setUploading] = useState(false);
@@ -36,7 +46,7 @@ const ImageUploader = ({ preset = 'carousel', description = '', onUploaded, curr
 
       const optimized = await optimizeImage(file, preset, description || file.name);
 
-      setProgress(`Comprimida: ${optimized.originalWidth}x${optimized.originalHeight} → ${optimized.width}x${optimized.height} | -${optimized.compressionRatio}% | ${optimized.sizeFormatted}`);
+      setProgress(`Optimizando: ${optimized.originalWidth}x${optimized.originalHeight} → ${optimized.width}x${optimized.height} | -${optimized.compressionRatio}% | ${optimized.sizeFormatted}`);
 
       setProgress('Subiendo a freeimage.host...');
       const base64 = await readFileAsBase64(optimized.file);
@@ -104,7 +114,7 @@ const ImageUploader = ({ preset = 'carousel', description = '', onUploaded, curr
             <p className="text-xs text-on-surface-variant mt-1">o haz clic para seleccionar</p>
           </div>
           <p className="text-[10px] text-on-surface-variant">
-            {preset === 'carousel' ? 'Recomendado: 1200x400px' : 'Recomendado: 800x400px'} • JPG, PNG, WEBP • Máx 64MB
+            {PRESET_LABELS[preset] || preset} • JPG, PNG, WEBP • Máx 64MB
           </p>
           <input
             ref={inputRef}
