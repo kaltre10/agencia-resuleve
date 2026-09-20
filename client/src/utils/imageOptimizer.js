@@ -1,14 +1,14 @@
 const IMAGE_PRESETS = {
-  hero:     { width: 1920, height: 800,  quality: 0.80, format: 'image/jpeg', maxSizeKB: 400 },
-  carousel: { width: 1200, height: 400,  quality: 0.82, format: 'image/jpeg', maxSizeKB: 250 },
-  offer:    { width: 800,  height: 400,  quality: 0.82, format: 'image/jpeg', maxSizeKB: 200 },
-  footer:   { width: 600,  height: 200,  quality: 0.80, format: 'image/jpeg', maxSizeKB: 100 },
-  logo:     { width: 400,  height: 400,  quality: 0.85, format: 'image/jpeg', maxSizeKB: 100 },
-  thumb:    { width: 400,  height: 400,  quality: 0.80, format: 'image/jpeg', maxSizeKB: 80 },
-  favicon:  { width: 128,  height: 128,  quality: 0.90, format: 'image/png',  maxSizeKB: 30 },
+  hero:     { width: 600,  height: 600,  quality: 0.85, format: 'image/jpeg', maxSizeKB: 120, fit: 'contain' },
+  carousel: { width: 1200, height: 400,  quality: 0.82, format: 'image/jpeg', maxSizeKB: 250, fit: 'cover' },
+  offer:    { width: 800,  height: 400,  quality: 0.82, format: 'image/jpeg', maxSizeKB: 200, fit: 'cover' },
+  footer:   { width: 600,  height: 200,  quality: 0.80, format: 'image/jpeg', maxSizeKB: 100, fit: 'contain' },
+  logo:     { width: 400,  height: 400,  quality: 0.85, format: 'image/jpeg', maxSizeKB: 100, fit: 'contain' },
+  thumb:    { width: 400,  height: 400,  quality: 0.80, format: 'image/jpeg', maxSizeKB: 80, fit: 'cover' },
+  favicon:  { width: 128,  height: 128,  quality: 0.90, format: 'image/png',  maxSizeKB: 30, fit: 'contain' },
 };
 
-function generateSEOFilename(description, prefix = 'img') {
+function generateSEOFilename(description) {
   const slug = (description || '')
     .toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -16,7 +16,7 @@ function generateSEOFilename(description, prefix = 'img') {
     .trim()
     .replace(/\s+/g, '-')
     .slice(0, 60);
-  return `${prefix}-${slug || 'upload'}-${Date.now()}`;
+  return `img-${slug || 'upload'}-${Date.now()}`;
 }
 
 function formatBytes(bytes) {
@@ -27,70 +27,93 @@ function formatBytes(bytes) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
 }
 
-function compressToTarget(canvas, config, attempt = 0) {
-  const qualities = [config.quality, config.quality - 0.1, config.quality - 0.2, 0.5, 0.3];
-  const quality = qualities[Math.min(attempt, qualities.length - 1)];
+function drawToCanvas(img, config) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  const targetRatio = config.width / config.height;
+  const sourceRatio = img.width / img.height;
 
-  return new Promise((resolve, reject) => {
-    canvas.toBlob(
-      (blob) => {
-        if (!blob) return reject(new Error('Error al comprimir imagen'));
-        resolve({ blob, quality });
-      },
-      config.format,
-      quality
-    );
-  });
+  if (config.fit === 'cover') {
+    let sx = 0, sy = 0, sw = img.width, sh = img.height;
+
+    if (sourceRatio > targetRatio) {
+      sw = img.height * targetRatio;
+      sx = (img.width - sw) / 2;
+    } else {
+      sh = img.width / targetRatio;
+      sy = (img.height - sh) / 2;
+    }
+
+    canvas.width = config.width;
+    canvas.height = config.height;
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, config.width, config.height);
+  } else {
+    let drawW, drawH;
+
+    if (sourceRatio > targetRatio) {
+      drawW = config.width;
+      drawH = config.width / sourceRatio;
+    } else {
+      drawH = config.height;
+      drawW = config.height * sourceRatio;
+    }
+
+    canvas.width = config.width;
+    canvas.height = config.height;
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.clearRect(0, 0, config.width, config.height);
+
+    if (config.format === 'image/png') {
+      // Transparente para PNG
+    } else {
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, config.width, config.height);
+    }
+
+    const offsetX = (config.width - drawW) / 2;
+    const offsetY = (config.height - drawH) / 2;
+    ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
+  }
+
+  return canvas;
+}
+
+async function compressWithRetry(canvas, config) {
+  const steps = [config.quality, 0.75, 0.6, 0.45, 0.3];
+
+  for (let i = 0; i < steps.length; i++) {
+    const blob = await new Promise((resolve, reject) => {
+      canvas.toBlob((b) => {
+        if (!b) return reject(new Error('Error al comprimir'));
+        resolve(b);
+      }, config.format, steps[i]);
+    });
+
+    if (blob.size <= config.maxSizeKB * 1024 || i === steps.length - 1) {
+      return { blob, quality: steps[i] };
+    }
+  }
 }
 
 export function optimizeImage(file, preset = 'carousel', description = '') {
+  const config = IMAGE_PRESETS[preset] || IMAGE_PRESETS.carousel;
+
+  if (!IMAGE_PRESETS[preset]) {
+    console.warn(`Preset "${preset}" no existe. Usando "carousel".`);
+  }
+
   return new Promise((resolve, reject) => {
-    const config = IMAGE_PRESETS[preset] || IMAGE_PRESETS.carousel;
-
-    if (!IMAGE_PRESETS[preset]) {
-      console.warn(`Preset "${preset}" no existe. Usando "carousel".`);
-    }
-
     const reader = new FileReader();
 
-    reader.onload = async (e) => {
+    reader.onload = (e) => {
       const img = new Image();
       img.onload = async () => {
         try {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-
-          const sourceRatio = img.width / img.height;
-          const targetRatio = config.width / config.height;
-
-          let sx = 0, sy = 0, sw = img.width, sh = img.height;
-
-          if (sourceRatio > targetRatio) {
-            sw = img.height * targetRatio;
-            sx = (img.width - sw) / 2;
-          } else {
-            sh = img.width / targetRatio;
-            sy = (img.height - sh) / 2;
-          }
-
-          canvas.width = config.width;
-          canvas.height = config.height;
-
-          ctx.imageSmoothingEnabled = true;
-          ctx.imageSmoothingQuality = 'high';
-          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, config.width, config.height);
-
-          let result = await compressToTarget(canvas, config, 0);
-          let blob = result.blob;
-
-          while (blob.size > config.maxSizeKB * 1024 && result.quality > 0.15) {
-            result = await compressToTarget(canvas, config, Math.round((config.quality - result.quality) / 0.1) + 1);
-            blob = result.blob;
-          }
-
-          if (blob.size > 10 * 1024 * 1024) {
-            return reject(new Error(`No se pudo comprimir a menos de ${config.maxSizeKB}KB. Intenta con una imagen más pequeña.`));
-          }
+          const canvas = drawToCanvas(img, config);
+          const { blob, quality } = await compressWithRetry(canvas, config);
 
           const ext = config.format === 'image/png' ? '.png' : '.jpg';
           const optimizedFile = new File(
@@ -103,6 +126,7 @@ export function optimizeImage(file, preset = 'carousel', description = '') {
             file: optimizedFile,
             width: config.width,
             height: config.height,
+            fit: config.fit,
             originalWidth: img.width,
             originalHeight: img.height,
             preset,

@@ -4,7 +4,7 @@ import { optimizeImage, readFileAsBase64 } from '@/utils/imageOptimizer';
 import { uploadImage } from '@/services/imageUpload';
 
 const PRESET_LABELS = {
-  hero: '1920x800 • Hero principal',
+  hero: '600x600 • Hero (logo/mascota)',
   carousel: '1200x400 • Carrusel',
   offer: '800x400 • Ofertas',
   footer: '600x200 • Footer/logo',
@@ -46,7 +46,7 @@ const ImageUploader = ({ preset = 'carousel', description = '', onUploaded, curr
 
       const optimized = await optimizeImage(file, preset, description || file.name);
 
-      setProgress(`Optimizando: ${optimized.originalWidth}x${optimized.originalHeight} → ${optimized.width}x${optimized.height} | -${optimized.compressionRatio}% | ${optimized.sizeFormatted}`);
+      setProgress(`Optimizando (${optimized.fit}): ${optimized.originalWidth}x${optimized.originalHeight} → ${optimized.width}x${optimized.height} | -${optimized.compressionRatio}% | ${optimized.sizeFormatted}`);
 
       setProgress('Subiendo a freeimage.host...');
       const base64 = await readFileAsBase64(optimized.file);
