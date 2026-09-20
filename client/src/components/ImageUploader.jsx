@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { Upload, X, Loader2, ImageIcon, Check } from 'lucide-react';
-import { optimizeImage, readFileAsBase64 } from '@/utils/imageOptimizer';
+import { Upload, X, Loader2, ImageIcon, Check, AlertTriangle } from 'lucide-react';
+import { optimizeImage, readFileAsBase64, IMAGE_PRESETS } from '@/utils/imageOptimizer';
 import { uploadImage } from '@/services/imageUpload';
 
 const PRESET_LABELS = {
@@ -12,6 +12,21 @@ const PRESET_LABELS = {
   thumb: '400x400 • Miniatura',
   favicon: '128x128 • Favicon',
 };
+
+const ACCEPTED = 'image/jpeg,image/png,image/webp,image/gif';
+
+function formatBytes(bytes) {
+  if (bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+}
+
+function getFileMeta(file) {
+  const ext = file.name.split('.').pop()?.toUpperCase() || '?';
+  return `${ext} • ${formatBytes(file.size)}`;
+}
 
 const ImageUploader = ({ preset = 'carousel', description = '', onUploaded, currentUrl, label = 'Imagen' }) => {
   const [preview, setPreview] = useState(currentUrl || null);
@@ -31,33 +46,55 @@ const ImageUploader = ({ preset = 'carousel', description = '', onUploaded, curr
 
   const handleFile = useCallback(async (file) => {
     if (!file || !file.type.startsWith('image/')) {
-      setError('Selecciona un archivo de imagen válido');
+      setError(`Formato no válido: ${file?.name || 'desconocido'} • Solo JPG, PNG, WEBP`);
       return;
     }
+
+    const config = IMAGE_PRESETS[preset] || IMAGE_PRESETS.carousel;
+    const fileMeta = getFileMeta(file);
 
     setError(null);
     setResult(null);
     setUploading(true);
 
     try {
-      setProgress('Optimizando imagen...');
+      setProgress(`Leyendo ${fileMeta}...`);
       const localPreview = URL.createObjectURL(file);
       setPreview(localPreview);
 
+      setProgress(`Optimizando ${fileMeta} → ${config.width}x${config.height} (${config.fit})...`);
       const optimized = await optimizeImage(file, preset, description || file.name);
 
-      setProgress(`Optimizando (${optimized.fit}): ${optimized.originalWidth}x${optimized.originalHeight} → ${optimized.width}x${optimized.height} | -${optimized.compressionRatio}% | ${optimized.sizeFormatted}`);
+      const ratio = ((1 - optimized.size / file.size) * 100).toFixed(0);
+      setProgress(
+        `Optimizada: ${optimized.originalWidth}x${optimized.originalHeight} ${formatBytes(file.size)} → ` +
+        `${optimized.width}x${optimized.height} ${optimized.sizeFormatted} (-${ratio}%)`
+      );
 
-      setProgress('Subiendo a freeimage.host...');
+      setProgress(`Subiendo ${optimized.sizeFormatted} a freeimage.host...`);
       const base64 = await readFileAsBase64(optimized.file);
       const uploaded = await uploadImage(base64, description || file.name);
 
       setResult(uploaded);
       setPreview(uploaded.url);
-      setProgress(`Subida: ${uploaded.width}x${uploaded.height}`);
+      setProgress(
+        `✓ ${uploaded.width}x${uploaded.height} | ${optimized.sizeFormatted} | ${preset}`
+      );
       onUploaded?.(uploaded.url);
     } catch (err) {
-      setError(err.message);
+      const config2 = IMAGE_PRESETS[preset] || IMAGE_PRESETS.carousel;
+      let msg = err.message;
+
+      if (msg.includes('Internal') || msg.includes('500')) {
+        msg = `Error del servidor: ${fileMeta}. ` +
+              `Imagen optimizada a ${config2.width}x${config2.height}, máx ${config2.maxSizeKB}KB. ` +
+              `Intenta con otra imagen o reduce el tamaño original.`;
+      } else if (msg.includes('413') || msg.includes('demasiado grande')) {
+        msg = `Imagen demasiado grande (${fileMeta}). Máx permitido: 30MB. ` +
+              `Tu imagen: ${file.name} (${formatBytes(file.size)}).`;
+      }
+
+      setError(msg);
       setProgress('');
     } finally {
       setUploading(false);
@@ -114,12 +151,12 @@ const ImageUploader = ({ preset = 'carousel', description = '', onUploaded, curr
             <p className="text-xs text-on-surface-variant mt-1">o haz clic para seleccionar</p>
           </div>
           <p className="text-[10px] text-on-surface-variant">
-            {PRESET_LABELS[preset] || preset} • JPG, PNG, WEBP • Máx 64MB
+            {PRESET_LABELS[preset] || preset} • JPG, PNG, WEBP • Máx 30MB
           </p>
           <input
             ref={inputRef}
             type="file"
-            accept="image/*"
+            accept={ACCEPTED}
             onChange={handleInputChange}
             className="hidden"
           />
@@ -159,8 +196,12 @@ const ImageUploader = ({ preset = 'carousel', description = '', onUploaded, curr
       )}
 
       {error && (
-        <div className="px-3 py-2 rounded-lg bg-red-500/10">
-          <span className="text-xs text-red-500 font-medium">{error}</span>
+        <div className="px-3 py-2 rounded-lg bg-red-500/10 space-y-1">
+          <div className="flex items-center gap-1.5">
+            <AlertTriangle className="size-3.5 text-red-500 shrink-0" />
+            <span className="text-xs text-red-500 font-medium">Error al subir imagen</span>
+          </div>
+          <span className="text-[11px] text-red-400 leading-relaxed block">{error}</span>
         </div>
       )}
     </div>
