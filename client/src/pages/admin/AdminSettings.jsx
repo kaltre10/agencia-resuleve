@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Save, RotateCcw } from 'lucide-react';
 import useLandingStore from '@/store/landingStore';
 import ImageUploader from '@/components/ImageUploader';
+import DocumentUploader from '@/components/DocumentUploader';
 
 const AdminSettings = () => {
   const { settings, updateSettings } = useLandingStore();
@@ -121,24 +122,21 @@ const AdminSettings = () => {
           </h3>
           <p className="text-[10px] text-on-surface-variant">Sube los archivos PDF o imagenes que se abren al dar click en los enlaces del footer</p>
 
-          <ImageUploader
-            preset="footer"
+          <DocumentUploader
             description="Terminos y Condiciones"
             currentUrl={form.termsUrl}
             onUploaded={(url) => setForm({ ...form, termsUrl: url })}
             label="Terminos y Condiciones"
           />
 
-          <ImageUploader
-            preset="footer"
+          <DocumentUploader
             description="Politica de Privacidad"
             currentUrl={form.privacyUrl}
             onUploaded={(url) => setForm({ ...form, privacyUrl: url })}
             label="Politica de Privacidad"
           />
 
-          <ImageUploader
-            preset="footer"
+          <DocumentUploader
             description="Juego Responsable"
             currentUrl={form.responsibleUrl}
             onUploaded={(url) => setForm({ ...form, responsibleUrl: url })}
